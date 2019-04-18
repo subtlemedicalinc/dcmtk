@@ -38,3 +38,23 @@ endforeach()
 
 # "dcmsend" always needs compression support
 DCMTK_TARGET_LINK_MODULES(dcmsend dcmjpls dcmjpeg dcmimage)
+
+# Added by Subtle for UUID support
+# Mac
+if(CMAKE_SYSTEM_NAME STREQUAL "Darwin")
+  find_package(PkgConfig)
+  pkg_check_modules(PC_UUID QUIET uuid)
+  set(UUID_DEFINITIONS ${PC_UUID_CFLAGS_OTHER})
+  find_path(UUID_INCLUDE_DIR uuid/uuid.h
+      HINTS ${PC_UUID_INCLUDEDIR} ${PC_UUID_INCLUDE_DIRS})
+  set(UUID_INCLUDE_DIRS ${UUID_INCLUDE_DIR})
+  set(UUID_REQUIRED UUID_INCLUDE_DIR)
+  include(FindPackageHandleStandardArgs)
+  find_package_handle_standard_args(UUID DEFAULT_MSG ${UUID_REQUIRED})
+  mark_as_advanced(${UUID_REQUIRED})
+else()
+  # Linux
+  pkg_search_module(UUID REQUIRED uuid)
+  target_include_directories(storescp PUBLIC ${UUID_INCLUDE_DIRS})
+  target_link_libraries(storescp ${UUID_LIBRARIES})
+endif()
