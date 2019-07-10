@@ -1,6 +1,6 @@
 /*
  *
- *  Copyright (C) 1994-2018, OFFIS e.V.
+ *  Copyright (C) 1994-2019, OFFIS e.V.
  *  All rights reserved.  See COPYRIGHT file for details.
  *
  *  This software and supporting documentation were developed by
@@ -169,7 +169,7 @@ class DCMTK_DCMDATA_EXPORT DcmItem
      *  @param pixelFileName not used
      *  @param pixelCounter not used
      */
-    virtual void print(STD_NAMESPACE ostream&out,
+    virtual void print(STD_NAMESPACE ostream &out,
                        const size_t flags = 0,
                        const int level = 0,
                        const char *pixelFileName = NULL,
@@ -290,7 +290,7 @@ class DCMTK_DCMDATA_EXPORT DcmItem
      *  @param flags optional flag used to customize the output (see DCMTypes::XF_xxx)
      *  @return status, EC_Normal if successful, an error code otherwise
      */
-    virtual OFCondition writeXML(STD_NAMESPACE ostream&out,
+    virtual OFCondition writeXML(STD_NAMESPACE ostream &out,
                                  const size_t flags = 0);
 
     /** write object in JSON format
@@ -298,7 +298,7 @@ class DCMTK_DCMDATA_EXPORT DcmItem
      *  @param format used to format and customize the output
      *  @return status, EC_Normal if successful, an error code otherwise
      */
-    virtual OFCondition writeJson(STD_NAMESPACE ostream&out,
+    virtual OFCondition writeJson(STD_NAMESPACE ostream &out,
                                   DcmJsonFormat &format);
 
     /** special write method for creation of digital signatures
@@ -833,6 +833,62 @@ class DCMTK_DCMDATA_EXPORT DcmItem
      */
     OFCondition findAndGetSint32Array(const DcmTagKey &tagKey,
                                       const Sint32 *&value,
+                                      unsigned long *count = NULL,
+                                      const OFBool searchIntoSub = OFFalse);
+
+    /** find element and get value as an unsigned 64-bit integer.
+     *  Applicable to the following VRs: OV, UV
+     *  The result variable 'value' is automatically set to zero if an error occurs.
+     *  @param tagKey DICOM tag specifying the attribute to be searched for
+     *  @param value variable in which the element value is stored
+     *  @param pos index of the value in case of multi-valued elements (0..vm-1)
+     *  @param searchIntoSub flag indicating whether to search into sequences or not
+     *  @return EC_Normal upon success, an error code otherwise.
+     */
+    OFCondition findAndGetUint64(const DcmTagKey &tagKey,
+                                 Uint64 &value,
+                                 const unsigned long pos = 0,
+                                 const OFBool searchIntoSub = OFFalse);
+
+    /** find element and get value as an array of unsigned 64-bit integers.
+     *  Applicable to the following VRs: OV, UV
+     *  The result variable 'value' is automatically set to NULL if an error occurs.
+     *  @param tagKey DICOM tag specifying the attribute to be searched for
+     *  @param value variable in which the reference to the element value is stored
+     *  @param count stores number of items in the result array (if not NULL)
+     *  @param searchIntoSub flag indicating whether to search into sequences or not
+     *  @return EC_Normal upon success, an error code otherwise.
+     */
+    OFCondition findAndGetUint64Array(const DcmTagKey &tagKey,
+                                      const Uint64 *&value,
+                                      unsigned long *count = NULL,
+                                      const OFBool searchIntoSub = OFFalse);
+
+    /** find element and get value as a signed 64-bit integer.
+     *  Applicable to the following VRs: SV
+     *  The result variable 'value' is automatically set to zero if an error occurs.
+     *  @param tagKey DICOM tag specifying the attribute to be searched for
+     *  @param value variable in which the element value is stored
+     *  @param pos index of the value in case of multi-valued elements (0..vm-1)
+     *  @param searchIntoSub flag indicating whether to search into sequences or not
+     *  @return EC_Normal upon success, an error code otherwise.
+     */
+    OFCondition findAndGetSint64(const DcmTagKey &tagKey,
+                                 Sint64 &value,
+                                 const unsigned long pos = 0,
+                                 const OFBool searchIntoSub = OFFalse);
+
+    /** find element and get value as an array of signed 64-bit integers.
+     *  Applicable to the following VRs: SV
+     *  The result variable 'value' is automatically set to NULL if an error occurs.
+     *  @param tagKey DICOM tag specifying the attribute to be searched for
+     *  @param value variable in which the reference to the element value is stored
+     *  @param count stores number of items in the result array (if not NULL)
+     *  @param searchIntoSub flag indicating whether to search into sequences or not
+     *  @return EC_Normal upon success, an error code otherwise.
+     */
+    OFCondition findAndGetSint64Array(const DcmTagKey &tagKey,
+                                      const Sint64 *&value,
                                       unsigned long *count = NULL,
                                       const OFBool searchIntoSub = OFFalse);
 

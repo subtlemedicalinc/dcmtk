@@ -189,14 +189,27 @@ OFBool WlmActivityManager::setRequestFilePath(const OFString& path, const OFStri
 //                format - [in] the format for the request file names.
 // Return Value : OFTrue if directory and format is accepted, OFFalse otherwise.
 {
-  if (OFStandard::dirExists(path) && OFStandard::isWriteable(path))
+  if (!path.empty())
   {
-    opt_requestFilePath = path;
-    opt_requestFileFormat = format;
-    return OFTrue;
+    if (OFStandard::dirExists(path) && OFStandard::isWriteable(path))
+    {
+      opt_requestFilePath = path;
+      opt_requestFileFormat = format;
+    }
+    else
+    {
+        return OFFalse;
+    }
   }
-  return OFFalse;
+  else
+  {
+      // disables option
+      opt_requestFilePath = path;
+      opt_requestFileFormat = format;
+  }
+  return OFTrue;
 }
+
 
 // ----------------------------------------------------------------------------
 
@@ -461,6 +474,7 @@ OFCondition WlmActivityManager::WaitForAssociation( T_ASC_Network * net )
 
   // Condition 5: if the called application entity title is not supported
   // within the data source we want to refuse the association request
+  dataSource->SetCalledApplicationEntityTitle( assoc->params->DULparams.calledAPTitle );
   if( !dataSource->IsCalledApplicationEntityTitleSupported() )
   {
     RefuseAssociation( &assoc, WLM_BAD_AE_SERVICE );

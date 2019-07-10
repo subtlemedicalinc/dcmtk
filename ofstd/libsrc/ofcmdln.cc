@@ -1,6 +1,6 @@
 /*
  *
- *  Copyright (C) 1998-2018, OFFIS e.V.
+ *  Copyright (C) 1998-2019, OFFIS e.V.
  *  All rights reserved.  See COPYRIGHT file for details.
  *
  *  This software and supporting documentation were developed by
@@ -15,7 +15,7 @@
  *
  *  Author:  Joerg Riesmeier
  *
- *  Purpose: Template class for command line arguments (Source)
+ *  Purpose: Handle command line arguments (Source)
  *
  */
 
@@ -269,6 +269,13 @@ OFBool OFCommandLine::checkOption(const OFString &option,
     return result;
 }
 
+void OFCommandLine::addGeneralOptions(const int longCols,
+                                      const int shortCols)
+{
+    addGroup("general options:", longCols, shortCols + 2);
+        addOption("--help",    "-h", "print this help text and exit",      OFCommandLine::AF_Exclusive);
+        addOption("--version",       "print version information and exit", OFCommandLine::AF_Exclusive);
+}
 
 OFBool OFCommandLine::addOption(const char *longOpt,
                                 const char *shortOpt,
@@ -1089,7 +1096,7 @@ OFCommandLine::E_ParseStatus OFCommandLine::parseCommandFile(const char *argValu
         /* skip '@' symbol in filename */
         const char *filename = argValue + 1;
         /* open command file */
-#ifdef HAVE_IOS_NOCREATE
+#if defined(HAVE_IOS_NOCREATE) && !defined(HAVE_CXX11)
         STD_NAMESPACE ifstream cmdFile(filename, STD_NAMESPACE ios::in|STD_NAMESPACE ios::nocreate);
 #else
         STD_NAMESPACE ifstream cmdFile(filename, STD_NAMESPACE ios::in);
@@ -1169,7 +1176,7 @@ OFCommandLine::E_ParseStatus OFCommandLine::parseCommandFile(const wchar_t *argV
         /* skip '@' symbol in filename */
         const wchar_t *filename = argValue + 1;
         /* open command file */
-#ifdef HAVE_IOS_NOCREATE
+#if defined(HAVE_IOS_NOCREATE) && !defined(HAVE_CXX11)
         STD_NAMESPACE wifstream cmdFile(filename, STD_NAMESPACE ios::in|STD_NAMESPACE ios::nocreate);
 #else
         STD_NAMESPACE wifstream cmdFile(filename, STD_NAMESPACE ios::in);

@@ -28,6 +28,7 @@
 #include "dcmtk/ofstd/ofdefine.h"
 
 #define INCLUDE_CSTRING
+#define INCLUDE_CSTDINT
 #include "dcmtk/ofstd/ofstdinc.h"
 
 /*---------------------*
@@ -80,9 +81,24 @@ class OFBitmanipTemplate
                         T *dest,
                         const size_t count)
     {
-#ifdef HAVE_MEMMOVE
+#if defined(HAVE_MEMMOVE) && !defined(PTRDIFF_MAX)
+        // some platforms have memmove() but not PTRDIFF_MAX.
+        // In this case, just call memmove().
         memmove(OFstatic_cast(void *, dest), OFstatic_cast(const void *, src), count * sizeof(T));
 #else
+
+#ifdef HAVE_MEMMOVE
+        // On some platforms (such as MinGW), memmove cannot move buffers
+        // larger than PTRDIFF_MAX. In the rare case of such huge buffers,
+        // fall back to our own implementation.
+        const size_t c = count * sizeof(T);
+        if (c <= PTRDIFF_MAX)
+        {
+            memmove(OFstatic_cast(void *, dest), OFstatic_cast(const void *, src), c);
+            return;
+        }
+#endif /* HAVE_MEMMOVE */
+
         if (src == dest)
             return;
 

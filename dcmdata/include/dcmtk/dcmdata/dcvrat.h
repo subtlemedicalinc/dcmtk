@@ -1,6 +1,6 @@
 /*
  *
- *  Copyright (C) 1994-2018, OFFIS e.V.
+ *  Copyright (C) 1994-2019, OFFIS e.V.
  *  All rights reserved.  See COPYRIGHT file for details.
  *
  *  This software and supporting documentation were developed by
@@ -46,7 +46,6 @@ class DCMTK_DCMDATA_EXPORT DcmAttributeTag
     /** constructor.
      *  Create new element from given tag.
      *  @param tag DICOM tag for the new element
-     *  @param len value length for the new element
      */
     DcmAttributeTag(const DcmTag &tag);
 
@@ -141,7 +140,7 @@ class DCMTK_DCMDATA_EXPORT DcmAttributeTag
      *  @param pixelFileName not used
      *  @param pixelCounter not used
      */
-    virtual void print(STD_NAMESPACE ostream&out,
+    virtual void print(STD_NAMESPACE ostream &out,
                        const size_t flags = 0,
                        const int level = 0,
                        const char *pixelFileName = NULL,
@@ -272,6 +271,7 @@ protected:
      */
     DcmAttributeTag(const DcmTag &tag,
                     const Uint32 len);
+
 };
 
 

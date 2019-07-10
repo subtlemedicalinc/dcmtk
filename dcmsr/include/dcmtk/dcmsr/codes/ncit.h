@@ -5,8 +5,8 @@
  *
  *  Header file with NCI Thesaurus Code Definitions (Coding Scheme "NCIt")
  *
- *  Generated automatically from DICOM PS 3.16-2019a
- *  File created on 2019-02-04 12:37:55 by J. Riesmeier
+ *  Generated automatically from DICOM PS 3.16-2019c
+ *  File created on 2019-06-19 17:38:36 by J. Riesmeier
  *
  */
 
@@ -34,7 +34,7 @@
  *  code definitions  *
  *--------------------*/
 
-// total number of codes: 33
+// total number of codes: 36
 // - retired: 0
 // - no name: 0
 // - not unique: 0
@@ -48,12 +48,14 @@
 // The "cleaned camel-case version of the code meaning" is an attempt to map the free text
 // description of the code meaning to a compiler-friendly but still human-readable representation.
 
+#define CODE_NCIt_EnhancingLesion                                          DSRBasicCodedEntry("C113842", "NCIt", "Enhancing Lesion")
 #define CODE_NCIt_RANO                                                     DSRBasicCodedEntry("C114879", "NCIt", "RANO")
 #define CODE_NCIt_DCFPyL_F18                                               DSRBasicCodedEntry("C116352", "NCIt", "DCFPyL F^18^")
 #define CODE_NCIt_Technetium99mTrofolastat                                 DSRBasicCodedEntry("C116887", "NCIt", "Technetium^99m Trofolastat")
 #define CODE_NCIt_PSMA11_Ga68                                              DSRBasicCodedEntry("C118961", "NCIt", "PSMA-11 Ga^68^")
 #define CODE_NCIt_Sarcosine_C11                                            DSRBasicCodedEntry("C122684", "NCIt", "Sarcosine C^11^")
 #define CODE_NCIt_MouseMammaryFatPad                                       DSRBasicCodedEntry("C22550", "NCIt", "Mouse mammary fat pad")
+#define CODE_NCIt_Middle                                                   DSRBasicCodedEntry("C25569", "NCIt", "Middle")
 #define CODE_NCIt_Reader                                                   DSRBasicCodedEntry("C28747", "NCIt", "Reader")
 #define CODE_NCIt_BronchioloalveolarAdenocarcinoma                         DSRBasicCodedEntry("C2923", "NCIt", "Bronchioloalveolar adenocarcinoma")
 #define CODE_NCIt_ClinicalCourseOfDisease                                  DSRBasicCodedEntry("C35461", "NCIt", "Clinical course of disease")
@@ -71,6 +73,7 @@
 #define CODE_NCIt_ActivitySession                                          DSRBasicCodedEntry("C67447", "NCIt", "Activity Session")
 #define CODE_NCIt_UnitConversionFactor                                     DSRBasicCodedEntry("C70774", "NCIt", "Unit Conversion Factor")
 #define CODE_NCIt_MedicalProductExpirationDate                             DSRBasicCodedEntry("C70854", "NCIt", "Medical Product Expiration Date")
+#define CODE_NCIt_NonEnhancingLesion                                       DSRBasicCodedEntry("C81175", "NCIt", "Non-Enhancing Lesion")
 #define CODE_NCIt_Erect                                                    DSRBasicCodedEntry("C86043", "NCIt", "erect")
 #define CODE_NCIt_BeddingChange                                            DSRBasicCodedEntry("C90365", "NCIt", "Bedding change")
 #define CODE_NCIt_BeddingMaterial                                          DSRBasicCodedEntry("C90366", "NCIt", "Bedding material")

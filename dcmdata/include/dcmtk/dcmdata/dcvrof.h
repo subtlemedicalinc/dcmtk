@@ -1,6 +1,6 @@
 /*
  *
- *  Copyright (C) 2002-2016, OFFIS e.V.
+ *  Copyright (C) 2002-2019, OFFIS e.V.
  *  All rights reserved.  See COPYRIGHT file for details.
  *
  *  This software and supporting documentation were developed by
@@ -108,7 +108,7 @@ class DCMTK_DCMDATA_EXPORT DcmOtherFloat
      *  @param flags optional flag used to customize the output (see DCMTypes::XF_xxx)
      *  @return status, EC_Normal if successful, an error code otherwise
      */
-    virtual OFCondition writeXML(STD_NAMESPACE ostream&out,
+    virtual OFCondition writeXML(STD_NAMESPACE ostream &out,
                                  const size_t flags = 0);
 
     /** write object in JSON format to a stream
@@ -116,8 +116,20 @@ class DCMTK_DCMDATA_EXPORT DcmOtherFloat
      *  @param format used to format and customize the output
      *  @return status, EC_Normal if successful, an error code otherwise
      */
-    virtual OFCondition writeJson(STD_NAMESPACE ostream&out,
+    virtual OFCondition writeJson(STD_NAMESPACE ostream &out,
                                   DcmJsonFormat &format);
+
+    /** create an empty Float32 array of given number of float values and set it.
+     *  All array elements are initialized with a value of 0 (using 'memzero').
+     *  @param numFloats number of float values (32 bit) to be created
+     *  @param floatVals stores the pointer to the resulting Float32 array
+     *    (set to NULL in case of error)
+     *  @return status, EC_Normal if successful, an error code otherwise
+     */
+    virtual OFCondition createFloat32Array(const Uint32 numFloats,
+                                           Float32 *&floatVals);
+
+
 };
 
 

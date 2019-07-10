@@ -1,6 +1,6 @@
 /*
  *
- *  Copyright (C) 2016-2017, OFFIS e.V.
+ *  Copyright (C) 2016-2019, OFFIS e.V.
  *  All rights reserved.  See COPYRIGHT file for details.
  *
  *  This software and supporting documentation were developed by
@@ -45,7 +45,7 @@ class DCMTK_DCMDATA_EXPORT DcmOtherLong
     friend class DcmItem;
 
     /** constructor.
-     *  Create new element from given tag and length.
+     *  Create new element from given tag.
      *  @param tag DICOM tag for the new element
      */
     DcmOtherLong(const DcmTag &tag);
@@ -110,7 +110,7 @@ class DCMTK_DCMDATA_EXPORT DcmOtherLong
      *  @param flags optional flag used to customize the output (see DCMTypes::XF_xxx)
      *  @return status, EC_Normal if successful, an error code otherwise
      */
-    virtual OFCondition writeXML(STD_NAMESPACE ostream&out,
+    virtual OFCondition writeXML(STD_NAMESPACE ostream &out,
                                  const size_t flags = 0);
 
     /** write object in JSON format
@@ -120,6 +120,16 @@ class DCMTK_DCMDATA_EXPORT DcmOtherLong
      */
     virtual OFCondition writeJson(STD_NAMESPACE ostream &out,
                                   DcmJsonFormat &format);
+
+    /** create an empty Uint32 array of given number of double-words and set it.
+     *  All array elements are initialized with a value of 0 (using 'memzero').
+     *  @param numDoubleWords number of double-words (32 bit) to be created
+     *  @param doubleWords stores the pointer to the resulting Uint32 array
+     *    (set to NULL in case of error)
+     *  @return status, EC_Normal if successful, an error code otherwise
+     */
+    virtual OFCondition createUint32Array(const Uint32 numDoubleWords,
+                                          Uint32 *&doubleWords);
 
   protected:
 
