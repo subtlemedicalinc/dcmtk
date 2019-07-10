@@ -132,7 +132,7 @@ macro(DCMTK_TARGET_LINK_MODULES TARGET)
     # These rules boil down to: If CMake knows the target (this handles all
     # cases for apps) and we aren't building a single library (case 2)
     if(TARGET ${TARGET} AND NOT BUILD_SINGLE_SHARED_LIBRARY)
-        target_link_libraries(${TARGET} ${ARGN})
+        target_link_libraries(${TARGET} ${ARGN} -static-libgcc -static-libstdc++)
     endif()
 endmacro()
 
